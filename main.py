@@ -32,7 +32,7 @@ driver.get('https://www.linkedin.com/')
 #password = "Poop123P"
 username = "milkycake05@gmail.com"
 password = "invicta"
-time.sleep(2)
+driver.implicitly_wait(10)
 driver.find_element(By.ID,'session_key').send_keys(username)
 driver.find_element(By.ID,'session_password').send_keys(password,Keys.RETURN)
 
@@ -41,18 +41,23 @@ time.sleep(10)
 
 #driver.get('https://www.linkedin.com/search/results/companies/?keywords=hemp%20gummies&origin=GLOBAL_SEARCH_HEADER&sid=J%40L')
 # driver.get('https://www.linkedin.com/search/results/companies/?keywords=hemp%20gummies&origin=SWITCH_SEARCH_VERTICAL&page=9&searchId=fd114a8e-a721-478f-ae61-d53ea00922c9&sid=H)z')
-driver.get('https://www.linkedin.com/search/results/companies/?keywords=hemp%20gummies&origin=SWITCH_SEARCH_VERTICAL&page=29&searchId=fd114a8e-a721-478f-ae61-d53ea00922c9&sid=AOU')
+#driver.get('https://www.linkedin.com/search/results/companies/?keywords=hemp%20gummies&origin=SWITCH_SEARCH_VERTICAL&page=29&searchId=fd114a8e-a721-478f-ae61-d53ea00922c9&sid=AOU')
+#driver.get('https://www.linkedin.com/search/results/companies/?companyHqGeo=%5B%22103644278%22%5D&keywords=casino&origin=FACETED_SEARCH&sid=OpM')
+driver.get('https://www.linkedin.com/search/results/companies/?companyHqGeo=%5B%22103644278%22%5D&keywords=casino&origin=FACETED_SEARCH&page=17&sid=4TE')
+
+
 action_chains = ActionChains(driver)
 
 
 try:
-    workbook = load_workbook('cbd companies.xlsx')
+    #workbook = load_workbook('cbd companies.xlsx')
+    workbook = load_workbook('casinos.xlsx')
     sheet = workbook.active
     last_row = sheet.max_row
     while(True):
         posts = driver.find_elements(By.XPATH,'.//ul//a[@class="app-aware-link "]')
         print(len(posts))
-        time.sleep(2)
+        #time.sleep(2)
 
         for post in posts:
                 driver.switch_to.window(driver.window_handles[0])
@@ -67,14 +72,16 @@ try:
 
                 action_chains.key_down(Keys.CONTROL).click(post).key_up(Keys.CONTROL).perform()
 
-                
-                driver.switch_to.window(driver.window_handles[1])
-                time.sleep(2)
+                try: 
+                    driver.switch_to.window(driver.window_handles[1])
+                except:
+                    continue
+                #time.sleep(2)
                 driver.execute_script("window.scrollTo(0, 0);")
 
                 driver.find_element(By.XPATH,'.//ul[@class="org-page-navigation__items "]//li[2]').click()
                              
-                time.sleep(1)
+                #time.sleep(1)
                 try:
                     try:
                          
@@ -92,18 +99,20 @@ try:
                         print(contact_info)
                         
                     driver.close()
-                    time.sleep(0.5)
+                    #time.sleep(0.5)
                     for i, value in enumerate(data, start=1):
                         sheet.cell(row=last_row, column=i).value = value
-                    workbook.save('cbd companies.xlsx')
+                    #workbook.save('cbd companies.xlsx')
+                    workbook.save('casinos.xlsx')
+
                 finally:
                     pass
-                time.sleep(1)
+                #time.sleep(1)
                 i+=1
                 
         driver.switch_to.window(driver.window_handles[0])
         driver.find_element(By.XPATH,'//button[@aria-label="Next"]').click()
-        time.sleep(2)
+        #time.sleep(2)
 
 
 finally:
