@@ -43,7 +43,7 @@ time.sleep(10)
 # driver.get('https://www.linkedin.com/search/results/companies/?keywords=hemp%20gummies&origin=SWITCH_SEARCH_VERTICAL&page=9&searchId=fd114a8e-a721-478f-ae61-d53ea00922c9&sid=H)z')
 #driver.get('https://www.linkedin.com/search/results/companies/?keywords=hemp%20gummies&origin=SWITCH_SEARCH_VERTICAL&page=29&searchId=fd114a8e-a721-478f-ae61-d53ea00922c9&sid=AOU')
 #driver.get('https://www.linkedin.com/search/results/companies/?companyHqGeo=%5B%22103644278%22%5D&keywords=casino&origin=FACETED_SEARCH&sid=OpM')
-driver.get('https://www.linkedin.com/search/results/companies/?companyHqGeo=%5B%22103644278%22%5D&keywords=casino&origin=FACETED_SEARCH&page=17&sid=4TE')
+driver.get('https://www.linkedin.com/search/results/companies/?companyHqGeo=%5B%22103644278%22%5D&industryCompanyVertical=%5B%2229%22%5D&keywords=online&origin=GLOBAL_SEARCH_HEADER&sid=Epq')
 
 
 action_chains = ActionChains(driver)
@@ -51,7 +51,7 @@ action_chains = ActionChains(driver)
 
 try:
     #workbook = load_workbook('cbd companies.xlsx')
-    workbook = load_workbook('casinos.xlsx')
+    workbook = load_workbook('online_casinos.xlsx')
     sheet = workbook.active
     last_row = sheet.max_row
     while(True):
@@ -103,7 +103,7 @@ try:
                     for i, value in enumerate(data, start=1):
                         sheet.cell(row=last_row, column=i).value = value
                     #workbook.save('cbd companies.xlsx')
-                    workbook.save('casinos.xlsx')
+                    workbook.save('online_casinos.xlsx')
 
                 finally:
                     pass
